@@ -65,13 +65,11 @@ def match_hostname_action(hostname, ci):
 
 def main(args=None):
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-h', '--host', type=str, default='localhost')
+    parser.add_argument('-p', '--port', type=int, default=443)
+    args = parser.parse_args(args)
 
-    parser.parse_args()
-
-    host = 'personreg.uio.no'
-    port = 443
-
-    cert = get_certificate(host, port)
+    cert = get_certificate(args.host, args.port)
     ci = CertificateInfo(cert)
 
     print(ci.pem)
